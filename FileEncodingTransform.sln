@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileEncodingTransform", "FileEncodingTransform.csproj", "{679A890D-D80A-4E82-8BC3-AAC852AE6EFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{679A890D-D80A-4E82-8BC3-AAC852AE6EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{679A890D-D80A-4E82-8BC3-AAC852AE6EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{679A890D-D80A-4E82-8BC3-AAC852AE6EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{679A890D-D80A-4E82-8BC3-AAC852AE6EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CDDF2CDD-1788-4ED7-8B03-535EC43D2163}
+	EndGlobalSection
+EndGlobal
