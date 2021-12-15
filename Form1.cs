@@ -65,7 +65,7 @@ namespace FileEncodingTransform
                 dialog.InitialDirectory = this.initPth;
                 if (!this.textBox_fileFilter.Text.Trim().Equals(""))
                 {
-                    dialog.Filter = this.textBox_fileFilter.Text.Trim();
+                    dialog.Filter = this.textBox_fileFilter.Text.Trim()+fileFilter_all(this.textBox_fileFilter.Text.Trim());
                 }
                 if (DialogResult.OK == dialog.ShowDialog())
                 {
@@ -100,6 +100,33 @@ namespace FileEncodingTransform
                     this.Cursor = Cursors.Default;
                 }
             }
+        }
+
+        private string fileFilter_all(string fileFilter_text)
+        {
+            int x = 0;
+            string filefilter_str1="";
+            string filefilter_str2="";
+            foreach (var str in fileFilter_text.Split('|'))
+            {
+                if (x % 2 == 0)
+                {
+                    filefilter_str1 += str + ';';
+                }
+                else {
+                    filefilter_str2 += str + ';';
+                }
+                x++;
+            }
+            if (fileFilter_text[fileFilter_text.Length - 1] == '|')
+            {
+                return filefilter_str1.TrimEnd(';') + '|' + filefilter_str2.TrimEnd(';');
+            }
+            else
+            {
+                return '|'+ filefilter_str1.TrimEnd(';') + '|' + filefilter_str2.TrimEnd(';');
+            }
+
         }
 
         private void button_Clipboard_Click(object sender, EventArgs e)
@@ -192,6 +219,11 @@ namespace FileEncodingTransform
                     this.txtResult.Text = this.txtResult.Text + "\r\n文件不存在：" + this.listView1.Items[num - 1].Text.ToString();
                     continue;
                 }
+                //不支持格式处理
+                if (listView1.Items[num - 1].SubItems[1].Text.ToLower() == "other") {
+                    txtResult.Text = txtResult.Text + "\r\n文件格式不正确或已损坏：" + this.listView1.Items[num - 1].Text.ToString();
+                    continue;
+                }
                 //处理文件，包含出错处理
                 try
                 {
@@ -199,7 +231,7 @@ namespace FileEncodingTransform
                 }
                 catch (Exception exception)
                 {
-                    txtResult.Text = txtResult.Text + "\r\n执行文件：" + this.listView1.Items[num - 1].Text.ToString() + "转换时出现错误：" + exception.Message;
+                    txtResult.Text = txtResult.Text + "\r\n转换时出现错误：" + this.listView1.Items[num - 1].Text.ToString() + "错误原因：" + exception.Message;
                     continue;
                 }
 
@@ -240,11 +272,11 @@ namespace FileEncodingTransform
         {
             if (!PathFile.Trim().Equals(""))
             {
-                if (!File.Exists(PathFile))
-                {
-                    this.txtResult.Text = this.txtResult.Text + string.Format("\r\n{0}文件不存在。 ", PathFile);
-                    return;
-                }
+                //if (!File.Exists(PathFile))
+                //{
+                //    this.txtResult.Text = this.txtResult.Text + string.Format("\r\n{0}文件不存在。 ", PathFile);
+                //    return;
+                //}
                 Encoding selectEncoding;
                 if (this.chkUnknownEncoding.Checked)
                 {
@@ -255,7 +287,7 @@ namespace FileEncodingTransform
                     testfile = null;
                     if (name.ToLower() == "other")
                     {
-                        this.txtResult.Text = this.txtResult.Text + string.Format("\r\n{0}文件格式不正确或已损坏。 ", PathFile);
+                        //this.txtResult.Text = this.txtResult.Text + string.Format("\r\n{0}文件格式不正确或已损坏。 ", PathFile);
                         return;
                     }
                     if (name != "UTF-8(BOM)")
